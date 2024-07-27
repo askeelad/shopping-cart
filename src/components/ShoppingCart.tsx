@@ -20,15 +20,17 @@ interface stateProps {
   cart: cartState;
 }
 
-export default function ShoppingCart() {
+export default function ShoppingCart({
+  shouldDisplayCart,
+}: {
+  shouldDisplayCart: Boolean;
+}) {
   const { numberOfItem, itemArray } = useSelector(
     (state: stateProps) => state.cart
   );
-  const shouldDisplayCart = true;
-  const cartCount = 0;
   return (
     <div
-      className={`bg-white flex flex-col absolute right-3 md:right-9 top-14 w-80 py-4 px-4 shadow-[0_5px_15px_0_rgba(0,0,0,.15)] rounded-md transition-opacity duration-500 ${
+      className={`bg-white z-10 flex flex-col absolute right-3 md:right-9 top-14 w-80 py-4 px-4 shadow-[0_5px_15px_0_rgba(0,0,0,.15)] rounded-md transition-opacity duration-500 ${
         shouldDisplayCart ? "opacity-100" : "opacity-0"
       }`}
     >

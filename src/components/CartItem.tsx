@@ -1,14 +1,14 @@
 import { formatCurrency } from "@/lib/formatters";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../redux/features/cartSlice";
+import { add, remove, deleteCartItem } from "../redux/features/cartSlice";
 
 export default function CartItem({ item }: { item: any }) {
   const { id, title, thumbnail, quantity, price } = item;
   const dispatch = useDispatch();
 
   const removeItemFromCart = () => {
-    dispatch(remove(item.id));
+    dispatch(deleteCartItem(item.id));
   };
 
   return (

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ShoppingCart from "./ShoppingCart";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 interface cartItemPayload {
   id: number;
@@ -24,6 +25,7 @@ interface stateProps {
 
 export default function NavBar() {
   const { numberOfItem } = useSelector((state: stateProps) => state.cart);
+  const [shouldDisplayCart, setShouldDisplayCart] = useState<Boolean>(false);
   return (
     <nav className="py-5 w-full flex justify-between">
       <Link href="/">
@@ -31,7 +33,12 @@ export default function NavBar() {
           ShoppingCart
         </p>
       </Link>
-      <button className="relative" onClick={() => {}}>
+      <button
+        className="relative"
+        onClick={() => {
+          setShouldDisplayCart(!shouldDisplayCart);
+        }}
+      >
         <Image
           src="/assets/cart.svg"
           width={40}
@@ -42,7 +49,7 @@ export default function NavBar() {
           {numberOfItem}
         </div>
       </button>
-      <ShoppingCart />
+      <ShoppingCart shouldDisplayCart={shouldDisplayCart} />
     </nav>
   );
 }
