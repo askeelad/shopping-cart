@@ -4,25 +4,7 @@ import Link from "next/link";
 import ShoppingCart from "./ShoppingCart";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-
-interface cartItemPayload {
-  id: number;
-  title: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
-interface cartState {
-  numberOfItem: number;
-  itemArray: cartItemPayload[];
-}
-
-interface stateProps {
-  product: {}[];
-  cart: cartState;
-}
-
+import { stateProps, itemProps } from "@/types/cart";
 export default function NavBar() {
   const { numberOfItem } = useSelector((state: stateProps) => state.cart);
   const [shouldDisplayCart, setShouldDisplayCart] = useState<Boolean>(false);

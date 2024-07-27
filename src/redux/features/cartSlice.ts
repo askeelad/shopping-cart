@@ -5,7 +5,11 @@ interface cartItemPayload {
   title: string;
   price: number;
   quantity: number;
-  image: string;
+  category: string;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  thumbnail: string;
 }
 
 interface cartState {

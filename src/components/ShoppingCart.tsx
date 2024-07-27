@@ -1,24 +1,7 @@
 import CartItem from "./CartItem";
 import CheckoutButton from "./CheckoutButton";
 import { useSelector } from "react-redux";
-
-interface cartItemPayload {
-  id: number;
-  title: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
-
-interface cartState {
-  numberOfItem: number;
-  itemArray: cartItemPayload[];
-}
-
-interface stateProps {
-  product: {}[];
-  cart: cartState;
-}
+import { stateProps, itemProps } from "@/types/cart";
 
 export default function ShoppingCart({
   shouldDisplayCart,

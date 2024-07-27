@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface productProps {
   id: number;
   quantity: number;
+  stock: number;
 }
 
 interface productState {
@@ -19,14 +20,19 @@ const productSlice = createSlice({
     allProducts(state, action) {
       state.product = action.payload;
     },
-    increaseQuantity(state, action: PayloadAction<number>) {
-      state.product.map((item, key) => {
-        if (item.id === action.payload) state.product[key].quantity++;
+    increaseQuantity(
+      state,
+      action: PayloadAction<{ id: number; qty: number }>
+    ) {
+      state.product.filter((item, key) => {
+        if (item.id == action.payload.id)
+          state.product[key].stock =
+            state.product[key].stock + action.payload.qty;
       });
     },
     decreaseQuantity(state, action: PayloadAction<number>) {
       state.product.map((item, key) => {
-        if (item.id === action.payload) state.product[key].quantity--;
+        if (item.id == action.payload) state.product[key].stock--;
       });
     },
   },
