@@ -31,7 +31,9 @@ export default function NavBar() {
           {numberOfItem}
         </div>
       </button>
-      <ShoppingCart shouldDisplayCart={shouldDisplayCart} />
+      {shouldDisplayCart && (
+        <ShoppingCart shouldDisplayCart={shouldDisplayCart} />
+      )}
     </nav>
   );
 }
