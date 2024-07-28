@@ -9,13 +9,24 @@ export default function CheckoutButton() {
   );
   let totalPrice = 0;
   itemArray.map((item: itemProps) => {
-    totalPrice += item.price;
+    totalPrice += item.price * item.quantity;
   });
   const router = useRouter();
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     localStorage.setItem("price", JSON.stringify(totalPrice));
-    router.push("/checkout");
+    // router.push("/checkout");
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({ totalPrice }),
+    };
+    const res = await fetch("/api/checkout", options);
+    const data = await res.json();
+    router.push(`/checkout?py=${data}`);
   }
 
   return (

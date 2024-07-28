@@ -15,22 +15,25 @@ import { itemProps } from "@/types/cart";
 import ChekoutItems from "./ChekoutItems";
 import { useSelector } from "react-redux";
 import { stateProps } from "@/types/cart";
+import { useSearchParams } from "next/navigation";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
 );
-const CheckoutForm = ({
-  clientSecret,
-  totalPrice,
-}: {
-  clientSecret: string;
-  totalPrice: number;
-}) => {
+const CheckoutForm = () => {
+  const searchParams = useSearchParams();
+  const clientSecret = searchParams.get("py") || undefined;
   const { numberOfItem, itemArray } = useSelector(
     (state: stateProps) => state.cart
   );
+
+  let totalPrice = 0;
+  itemArray.map((item: itemProps) => {
+    totalPrice += item.price * item.quantity;
+  });
   return (
     <>
+      <div className="flex justify-center text-center text-4xl">Checkout</div>
       {itemArray.map((item: itemProps) => (
         <ChekoutItems item={item} />
       ))}
@@ -80,7 +83,6 @@ function Form({ price }: { price: number }) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <h2>Checkout</h2>
         {errorMessage && <div className="text-destructive">{errorMessage}</div>}
         <PaymentElement onReady={() => setShowPurchaseButton(true)} />
         <div className="mt-4">

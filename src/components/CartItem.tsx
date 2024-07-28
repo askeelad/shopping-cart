@@ -39,14 +39,14 @@ export default function CartItem({ item }: { item: itemProps }) {
   };
 
   return (
-    <div className="flex items-center gap-4 mb-3">
-      <p className="text-4xl">
+    <div className="flex items-center justify-center gap-4 mb-3 w-full">
+      <p className="text-4xl w-3/12">
         <Image src={thumbnail} alt={title} height={50} width={70} />
       </p>
-      <div>
+      <div className="w-3/12">
         {title} <span className="text-xs">({quantity})</span>
       </div>
-      <div className="flex justify-around items-center mt-4 mb-2 ">
+      <div className="flex justify-around items-center mt-4 mb-2 w-3/10 ">
         <button
           onClick={decrease}
           className="hover:text-emerald-500 hover:bg-emerald-50 w-8 h-8 rounded-full transition-colors duration-500"
@@ -60,11 +60,10 @@ export default function CartItem({ item }: { item: itemProps }) {
           +
         </button>
       </div>
-      <div className="ml-auto">{formatCurrency(price)}</div>
-      <div className="ml-auto">{formatCurrency(price * quantity)}</div>
+      <div className="ml-auto w-2/12">{formatCurrency(price * quantity)}</div>
       <button
         onClick={() => removeItemFromCart()}
-        className="hover:bg-red-400 transition-colors rounded-full duration-500 p-1 bg-red-100"
+        className="hover:bg-red-400 transition-colors rounded-full duration-500 p-1 bg-red-100 w-1/10"
       >
         <Image
           alt="delete icon"

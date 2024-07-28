@@ -1,12 +1,13 @@
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import CheckoutForm from "./CheckoutForm";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-const PaymentIntent = async ({ price }: { price: number }) => {
+const handler = async (req: NextRequest, res: NextResponse) => {
+  console.log(req.body);
   let totalPrice = 111;
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: price,
+    amount: 11,
     currency: "USD",
     metadata: { numberOfItem: "" },
   });
@@ -14,12 +15,7 @@ const PaymentIntent = async ({ price }: { price: number }) => {
   if (paymentIntent.client_secret == null) {
     throw Error("Stripe failed to createpayment intent");
   }
-  return (
-    <CheckoutForm
-      clientSecret={paymentIntent.client_secret}
-      totalPrice={price}
-    />
-  );
+  return new NextResponse(paymentIntent.client_secret, { status: 400 });
 };
 
-export default PaymentIntent;
+export default handler;
