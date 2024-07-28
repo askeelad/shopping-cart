@@ -4,12 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { allProducts } from "../redux/features/productSlice";
 import { stateProps, itemProps } from "@/types/cart";
-import { InputHTMLAttributes, useState } from "react";
+import { InputHTMLAttributes, useEffect, useState } from "react";
 import { Select, Field, Label } from "@headlessui/react";
 
 export default function Home() {
   const [searchedPosts, setSeacrhedPosts] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [shouldReduxDataChange, setShouldReduxDataChange] = useState(false);
+  const [searchSortChanged, setSearchSortChanged] = useState(false);
   const dispatch = useDispatch();
   const { product } = useSelector((state: stateProps) => state.product);
 
@@ -17,6 +19,7 @@ export default function Home() {
     queryKey: ["productsData", searchedPosts, sortBy],
     queryFn: async () => {
       if (searchedPosts != "" && sortBy !== "") {
+        setSearchSortChanged(true);
         window.history.replaceState(
           { additionalInformation: "Updated the URL with JS" },
           "Shopping Cart",
@@ -27,6 +30,7 @@ export default function Home() {
         );
         return data.json();
       } else if (searchedPosts !== "") {
+        setSearchSortChanged(true);
         window.history.replaceState(
           { additionalInformation: "Updated the URL with JS" },
           "Shopping Cart",
@@ -37,6 +41,7 @@ export default function Home() {
         );
         return data.json();
       } else if (sortBy !== "") {
+        setSearchSortChanged(true);
         window.history.replaceState(
           { additionalInformation: "Updated the URL with JS" },
           "Shopping Cart",
@@ -57,10 +62,16 @@ export default function Home() {
       }
     },
   });
-  console.log(data);
+  // console.log(data);
+
+  useEffect(() => {
+    if (searchSortChanged) setShouldReduxDataChange(true);
+  }, [searchedPosts, sortBy]);
 
   if (data) {
-    dispatch(allProducts(data.products));
+    console.log(shouldReduxDataChange);
+    if (product.length == 0 || shouldReduxDataChange)
+      dispatch(allProducts(data.products));
   }
 
   // if (isPending) return "Loading...";

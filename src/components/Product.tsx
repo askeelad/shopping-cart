@@ -26,8 +26,6 @@ export default function Product({
   let index = 0;
 
   product.map((p, k) => {
-    console.log(p);
-    console.log(products.id);
     if (products.id == p.id) index = k;
   });
 
@@ -61,8 +59,9 @@ export default function Product({
 
   return (
     <article className="flex flex-col justify-between gap-3 bg-white p-8 rounded-xl shadow-md text-center mb-6 relative z-1">
-      <div className="rounded-full flex justify-center items-center bg-emerald-500 text-xs text-white absolute w-12 h-12 -top-3 -right-1 z-2">
-        {formatNumber(product[index].discountPercentage)}% off
+      <div className="rounded-full flex flex-col justify-center items-center bg-emerald-500 text-xs text-white absolute w-12 h-12 -top-3 -right-1 z-2">
+        <div>{formatNumber(product[index].discountPercentage)}%</div>
+        <div>Off</div>
       </div>
       {outOfStock && (
         <div className="text-lg text-red-400">
