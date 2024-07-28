@@ -11,7 +11,7 @@ export default function NavBar() {
   return (
     <nav className="py-5 w-full flex justify-between">
       <Link href="/">
-        <p className="text-4xl font-bold underline underline-offset-4 decoration-wavy decoration-2 decoration-emerald-500">
+        <p className="text-4xl font-bold decoration-2 text-emerald-500">
           ShoppingCart
         </p>
       </Link>

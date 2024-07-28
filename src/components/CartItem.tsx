@@ -64,7 +64,7 @@ export default function CartItem({ item }: { item: itemProps }) {
       <div className="ml-auto">{formatCurrency(price * quantity)}</div>
       <button
         onClick={() => removeItemFromCart()}
-        className="hover:bg-red-50 transition-colors rounded-full duration-500 p-1 bg-red-400"
+        className="hover:bg-red-400 transition-colors rounded-full duration-500 p-1 bg-red-100"
       >
         <Image
           alt="delete icon"
