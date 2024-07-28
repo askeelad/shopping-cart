@@ -34,9 +34,11 @@ const CheckoutForm = () => {
   return (
     <>
       <div className="flex justify-center text-center text-4xl">Checkout</div>
-      {itemArray.map((item: itemProps) => (
-        <ChekoutItems item={item} />
-      ))}
+      <div className="max-w-5xl w-full mx-auto py-5">
+        {itemArray.map((item: itemProps) => (
+          <ChekoutItems item={item} />
+        ))}
+      </div>
       <div className="max-w-5xl w-full mx-auto space-y-8">
         <Elements options={{ clientSecret }} stripe={stripePromise}>
           <Form price={totalPrice} />
