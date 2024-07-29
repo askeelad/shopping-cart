@@ -121,7 +121,12 @@ export default function Home() {
       </div>
       {isPending && (
         <>
-          <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-20">
+          <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap h-[100%] w-full py-20">
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
             <ProductCardSkeleton />
@@ -131,7 +136,7 @@ export default function Home() {
         </>
       )}
       {!isPending && (
-        <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-20">
+        <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-10">
           {product &&
             product.map((product: itemProps) => (
               <Product products={product} key={product.id} />

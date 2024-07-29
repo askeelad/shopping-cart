@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 import Providers from "@/components/providers";
+import Footer from "@/components/footer";
 export const metadata = {
   title: "Shopping Cart",
   desccription: "Discover & Buy awesome products",
@@ -22,6 +23,7 @@ const RootLayout = ({
             <Providers>
               <NavBar />
               {children}
+              <Footer />
             </Providers>
           </div>
         </main>
