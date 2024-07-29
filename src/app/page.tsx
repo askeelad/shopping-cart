@@ -18,15 +18,16 @@ export default function Home() {
   const { isPending, error, data } = useQuery({
     queryKey: ["productsData", searchedPosts, sortBy],
     queryFn: async () => {
+      let sortData = sortBy.split("_");
       if (searchedPosts != "" && sortBy !== "") {
         setSearchSortChanged(true);
         window.history.replaceState(
           { additionalInformation: "Updated the URL with JS" },
           "Shopping Cart",
-          `http://localhost:3000?query=${searchedPosts}&&sortBy=${sortBy}&&order=asc`
+          `http://localhost:3000?query=${searchedPosts}&&sortBy=${sortData[0]}&&order=${sortData[1]}`
         );
         const data = await fetch(
-          `https://dummyjson.com/products/search?q=${searchedPosts}&&sortBy=${sortBy}&&order=asc`
+          `https://dummyjson.com/products/search?q=${searchedPosts}&&sortBy=${sortData[0]}&&order=${sortData[1]}`
         );
         return data.json();
       } else if (searchedPosts !== "") {
@@ -45,10 +46,10 @@ export default function Home() {
         window.history.replaceState(
           { additionalInformation: "Updated the URL with JS" },
           "Shopping Cart",
-          `http://localhost:3000?sortBy=${sortBy}&&order=asc`
+          `http://localhost:3000?sortBy=${sortData[0]}&&order=${sortData[1]}`
         );
         const data = await fetch(
-          `https://dummyjson.com/products?sortBy=${sortBy}&&order=asc`
+          `https://dummyjson.com/products?sortBy=${sortData[0]}&&order=${sortData[1]}`
         );
         return data.json();
       } else {
@@ -103,11 +104,16 @@ export default function Home() {
               onChange={(e) => setSortBy(e.target.value)}
               value={sortBy}
             >
-              <option value="id">Id</option>
-              <option value="title">Title</option>
-              <option value="rating">Rating</option>
-              <option value="price">Price</option>
-              <option value="stock">Quantity</option>
+              <option value="id_asc">Id(asc)</option>
+              <option value="id_desc">Id(desc)</option>
+              <option value="title_asc">Title(asc)</option>
+              <option value="title_desc">Title(desc)</option>
+              <option value="rating_asc">Rating(asc)</option>
+              <option value="rating_desc">Rating(desc)</option>
+              <option value="price_asc">Price(asc)</option>
+              <option value="price_desc">Price(desc)</option>
+              <option value="stock_asc">Quantity(asc)</option>
+              <option value="stock_desc">Quantity(desc)</option>
             </Select>
           </div>
         </Field>
