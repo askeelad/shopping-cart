@@ -6,6 +6,7 @@ import { allProducts } from "../redux/features/productSlice";
 import { stateProps, itemProps } from "@/types/cart";
 import { InputHTMLAttributes, useEffect, useState } from "react";
 import { Select, Field, Label } from "@headlessui/react";
+import ProductCardSkeleton from "./checkout/_components/ProductCardSkeleton";
 
 export default function Home() {
   const [searchedPosts, setSeacrhedPosts] = useState("");
@@ -118,13 +119,25 @@ export default function Home() {
           </div>
         </Field>
       </div>
-      {isPending && <div>Loading</div>}
-      <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-20">
-        {product &&
-          product.map((product: itemProps) => (
-            <Product products={product} key={product.id} />
-          ))}
-      </div>
+      {isPending && (
+        <>
+          <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-20">
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </div>
+        </>
+      )}
+      {!isPending && (
+        <div className="grid sm:grid-cols-2 md:grid-cols-5 justify-center mx-auto gap-4 place-center flex-wrap w-full py-20">
+          {product &&
+            product.map((product: itemProps) => (
+              <Product products={product} key={product.id} />
+            ))}
+        </div>
+      )}
     </>
   );
 }
